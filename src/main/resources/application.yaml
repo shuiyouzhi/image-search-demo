@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: image-search-demo
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+milvus:
+  host: localhost
+  port: 19530
+  database-name: image_search_db
+  # collection-name: product_images_1000
+  collection-name: product_images_1280
+  # collection-name: product_images_512
+  #mobilenet_v2_1000.onnx模型, 1000维输出
+  #mobilenet_v2_1280.onnx模型, 1280维输出
+  #mobilenet_v2_CLIP.onnx模型, 512维输出
+  # vector-dim: 1000
+  vector-dim: 1280
+  # vector-dim: 512
+
+model:
+  #path: models/mobilenet_v2_1000.onnx
+  path: models/mobilenet_v2_1280.onnx
+  # path: models/mobilenet_v2_CLIP.onnx
+  input-size: 224
+  input-name: input
+  #output-name: output  # mobilenet_v2_1000.onnx模型, 1000维输出
+  output-name: feature  # mobilenet_v2_1280.onnx模型, 1280维输出
+  # output-name: feature  # mobilenet_v2_CLIP.onnx模型, 512维输出
+
+search:
+  top-k: 5 # 返回与查询向量最相似的 K 条结果
+  nprobe: 1000 # 搜索时要探测的聚类单元数量,值越大，精度越高但速度越慢
+
+logging:
+  level:
+    com.example: DEBUG
